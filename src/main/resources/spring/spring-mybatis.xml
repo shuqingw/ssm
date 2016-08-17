@@ -9,10 +9,7 @@
                         http://www.springframework.org/schema/context/spring-context-3.1.xsd    
                         http://www.springframework.org/schema/mvc    
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">  
-    <!-- 自动扫描 -->  
-    <context:component-scan base-package="com.august" />  
     <!-- 引入配置文件 -->  
-
     <!--1、配置数据库相关参数-->
     <context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true"/>
     
@@ -58,10 +55,4 @@
         <!-- 给出需要扫描的Dao接口-->
         <property name="basePackage" value="com.august.dao"/>
     </bean>
-    
-    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->  
-    <bean id="transactionManager"  
-        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
-        <property name="dataSource" ref="dataSource" />  
-    </bean>  
  </beans>

@@ -9,7 +9,18 @@ public class User {
 
     private Integer age;
 
-    public Integer getId() {
+    public User(){//默认无参数构造器，不可缺少
+    	
+    }
+    
+    public User(Integer id, String userName, String password, Integer age) {
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.age = age;
+	}
+
+	public Integer getId() {
         return id;
     }
 
