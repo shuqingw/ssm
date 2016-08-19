@@ -8,18 +8,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.august.cache.RedisCache;
 import com.august.entity.User;
 import com.august.service.IUserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)  //表示继承了SpringJUnit4ClassRunner类  
-@ContextConfiguration(locations = {"classpath:spring/spring-mybatis.xml", "classpath:spring/spring-service.xml"})
+@ContextConfiguration("classpath:spring/applicationContext.xml")
 public class UserServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
     @Resource
     private IUserService userService;
+    @Resource
+    private RedisCache redisCache;
     
     @Test
     public void test1(){
@@ -52,6 +56,11 @@ public class UserServiceTest {
     	User user2 = userService.getUserById(2);
     	System.out.println("--------------------");
     	logger.info(JSON.toJSONString(user2));
+    	
+    	//redisTemplate中配置enableTransactionSupport为true, 使用spring注解@Transactional
+    	User user3 = redisCache.getCache("testJedisTransactional", User.class);
+    	System.out.println("---------test-jedis-transactional-rollback-----------");
+    	logger.info(JSON.toJSONString(user3));
     }
     
 }
